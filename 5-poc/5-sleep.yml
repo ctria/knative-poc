@@ -1,0 +1,45 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: sleep
+spec:
+  template:
+    spec:
+      containers:
+      - image: docker.io/ctria/knative-sleep:latest
+        env:
+        - name: REDIS_HOST
+          value: redis.poc.svc.cluster.local
+---
+apiVersion: eventing.knative.dev/v1
+kind: Trigger
+metadata:
+  name: sleep
+  annotations:
+    rabbitmq.eventing.knative.dev/parallelism: "100"
+spec:
+  broker: default
+  filter:
+    attributes:
+      type: sleep
+  subscriber:
+    ref:
+      apiVersion: serving.knative.dev/v1
+      kind: Service
+      name: sleep
+---
+apiVersion: eventing.knative.dev/v1
+kind: Trigger
+metadata:
+  name: task-result
+spec:
+  broker: default
+  filter:
+    attributes:
+      type: task-result
+  subscriber:
+    ref:
+      apiVersion: serving.knative.dev/v1
+      kind: Service
+      name: ui
+    uri: /result

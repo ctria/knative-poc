@@ -1,0 +1,15 @@
+---
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: ui
+spec:
+  template:
+    spec:
+      containers:
+      - image: docker.io/ctria/knative-ui:latest
+        env:
+        - name: BROKER_URL
+          value: http://default-broker-ingress.poc.svc.cluster.local
+        - name: REDIS_HOST
+          value: redis.poc.svc.cluster.local

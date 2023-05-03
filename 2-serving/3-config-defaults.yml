@@ -1,0 +1,26 @@
+apiVersion: v1
+data:
+  allow-container-concurrency-zero: "true"
+  container-concurrency: "0"
+  container-concurrency-max-limit: "1000"
+  container-name-template: user-container
+  enable-service-links: "false"
+  init-container-name-template: init-container
+  max-revision-timeout-seconds: "7200"
+  revision-cpu-limit: 1000m
+  revision-cpu-request: 400m
+  revision-ephemeral-storage-limit: 750M
+  revision-ephemeral-storage-request: 500M
+  revision-idle-timeout-seconds: "0"
+  revision-memory-limit: 200M
+  revision-memory-request: 100M
+  revision-response-start-timeout-seconds: "300"
+  revision-timeout-seconds: "7200"
+kind: ConfigMap
+metadata:
+  labels:
+    app.kubernetes.io/component: controller
+    app.kubernetes.io/name: knative-serving
+    app.kubernetes.io/version: 1.9.3
+  name: config-defaults
+  namespace: knative-serving
