@@ -1,5 +1,5 @@
 Sources
 -------
 
-https://github.com/rabbitmq/cluster-operator
-https://github.com/rabbitmq/messaging-topology-operator
+1. https://github.com/rabbitmq/cluster-operator
+1. https://github.com/rabbitmq/messaging-topology-operator
